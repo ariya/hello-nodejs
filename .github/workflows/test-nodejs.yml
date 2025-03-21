@@ -1,0 +1,25 @@
+name: Test with Nodejs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - run: node index.js &
+
+      - name: Run the health check validation
+        run: while ! curl -s 'http://localhost:3000/health' | grep 'OK'; do sleep 1; done
+        timeout-minutes: 3
