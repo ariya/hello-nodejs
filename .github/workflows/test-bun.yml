@@ -1,0 +1,26 @@
+name: Test with Bun
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - run: bun --version
+
+      - run: bun index.js &
+
+      - name: Run the health check validation
+        run: while ! curl -s 'http://localhost:3000/health' | grep 'OK'; do sleep 1; done
+        timeout-minutes: 3
