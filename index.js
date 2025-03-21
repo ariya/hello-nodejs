@@ -6,6 +6,8 @@ const serve = async (port, hostname = '127.0.0.1') => {
     if (url === '/' || url === '/index.html') {
       response.writeHead(200, { 'Content-Type': 'text/html' });
       response.end('<h1>Hello, Node.js!</h1>');
+    } else if (url === '/health') {
+      response.writeHead(200).end(`OK ${Date.now()}`);
     } else {
       console.error(`${url} is 404!`);
       response.writeHead(404);
