@@ -1,11 +1,11 @@
 name: Test with Nodejs
 
 on:
-  workflow_dispatch:
-  pull_request:
   push:
     branches: [main]
-
+  pull_request:
+  workflow_dispatch:
+ 
 jobs:
   test:
     runs-on: ubuntu-22.04
