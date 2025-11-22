@@ -5,14 +5,14 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
- 
+
 jobs:
   test:
     runs-on: ubuntu-22.04
     timeout-minutes: 5
     strategy:
       matrix:
-        nodejs-version: [22, 20, 18]
+        nodejs-version: [24, 22, 20, 18]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
